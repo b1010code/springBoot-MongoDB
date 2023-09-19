@@ -13,29 +13,26 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 
 
-
 @Data
 @Document(collection = "Tutorials")
 public class Tutorial {
     @Id
     private String id;
 
-    @Field("title")
     private String title;
-    @Field("description")
+
     private String description;
 
-
     @JsonProperty("checkIn")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @Field("checkIn")
     private LocalDate checkIn;
+
     @JsonProperty("checkOut")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    @Field("checkOut")
+
     private LocalDate checkOut;
-    @Field("numberClicks")
+
     private BigInteger numberClicks;
 }
