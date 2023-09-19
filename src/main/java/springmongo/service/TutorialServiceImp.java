@@ -1,11 +1,13 @@
 package springmongo.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import springmongo.model.Tutorial;
 import springmongo.repository.TutorialRepository;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class TutorialServiceImp implements TutorialService {
     private TutorialRepository tutorialRepository;
