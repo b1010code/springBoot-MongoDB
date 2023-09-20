@@ -13,7 +13,7 @@ import java.math.BigInteger;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties({"checkIn", "checkOut"})
-public class TutorialResDto {
+public class ChannelResDto {
     private String id;
     private String title;
     private BigInteger numberClicks;
