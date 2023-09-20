@@ -6,4 +6,5 @@ springboot com MongoDB atual.
 - Model Mapper
 - DTO
 - Validação com Bean Validation 
+- JUnit 5, testes unitários
 

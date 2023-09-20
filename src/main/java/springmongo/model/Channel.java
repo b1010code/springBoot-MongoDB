@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -20,7 +22,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "Tutorials")
-public class Tutorial {
+public class Channel {
     @Id
     private String id;
 
@@ -28,8 +30,8 @@ public class Tutorial {
     private String title;
 
     @NotBlank(message = "Descrição obrigatória")
+    @Field(targetType = FieldType.STRING)
     private String description;
-
 
     @JsonProperty("checkIn")
     @JsonFormat(pattern = "yyyy-MM-dd")
