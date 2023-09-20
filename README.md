@@ -1,4 +1,9 @@
 # springBoot-MongoDB
 
- CRUD springboot com MongoDB atual.
+springboot com MongoDB atual.
+
+- CRUD 
+- Model Mapper
+- DTO
+- Validação com Bean Validation 
 

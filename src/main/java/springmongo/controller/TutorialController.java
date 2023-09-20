@@ -1,5 +1,6 @@
 package springmongo.controller;
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class TutorialController {
     @PostMapping("/save")
     @ResponseBody
     @ResponseStatus
-    public ResponseEntity<Tutorial> create(@RequestBody Tutorial tutorial) {
+    public ResponseEntity<Tutorial> create(@Valid @RequestBody Tutorial tutorial) {
         Tutorial createTutorial = tutorialService.create(tutorial);
         return ResponseEntity.ok(createTutorial);
     }
