@@ -1,19 +1,26 @@
 package springmongo.service;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import springmongo.DTOs.TutorialResDto;
 import springmongo.model.Tutorial;
 import springmongo.repository.TutorialRepository;
 
 import java.util.List;
 
-@Slf4j
 @Service
+@RequiredArgsConstructor
 public class TutorialServiceImp implements TutorialService {
     private TutorialRepository tutorialRepository;
+    private ModelMapper modelMapper;
 
-    public TutorialServiceImp(TutorialRepository tutorialRepository) {
+    @Autowired
+    public TutorialServiceImp(TutorialRepository tutorialRepository, ModelMapper modelMapper) {
         this.tutorialRepository = tutorialRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -25,6 +32,17 @@ public class TutorialServiceImp implements TutorialService {
     public List<Tutorial> findAll() {
         return this.tutorialRepository.findAll();
     }
+
+    @Override
+    public TutorialResDto findRespAll(String id) {
+        Tutorial tutorial = this.tutorialRepository.findById(id).orElse(null);
+        if (tutorial != null) {
+            return this.modelMapper.map(tutorial, TutorialResDto.class);
+        } else {
+            throw new RuntimeException("ID não encontrada " + id);
+        }
+    }
+
 
     @Override
     public Tutorial findById(String id) {

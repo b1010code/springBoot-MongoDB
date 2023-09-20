@@ -1,8 +1,10 @@
 package springmongo.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springmongo.DTOs.TutorialResDto;
 import springmongo.model.Tutorial;
 import springmongo.service.TutorialService;
 
@@ -13,9 +15,11 @@ import java.util.List;
 @RequestMapping("/tutorials")
 public class TutorialController {
     private TutorialService tutorialService;
+    private ModelMapper modelMapper;
 
-    public TutorialController(TutorialService tutorialService) {
+    public TutorialController(TutorialService tutorialService, ModelMapper modelMapper) {
         this.tutorialService = tutorialService;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/save")
@@ -33,6 +37,7 @@ public class TutorialController {
         return ResponseEntity.ok(participants);
     }
 
+
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<Tutorial> findById(@PathVariable(value = "id") String id) {
@@ -40,6 +45,20 @@ public class TutorialController {
 
         if (tutorial != null) {
             return new ResponseEntity<>(tutorial, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    @GetMapping("/get/{id}")
+    @ResponseBody
+    public ResponseEntity<TutorialResDto> findRespAll(@PathVariable(value = "id") String id) {
+        Tutorial tutorial = this.tutorialService.findById(id);
+
+        if (tutorial != null) {
+            TutorialResDto tutorialResDto = this.modelMapper.map(tutorial, TutorialResDto.class);
+            return new ResponseEntity<>(tutorialResDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
