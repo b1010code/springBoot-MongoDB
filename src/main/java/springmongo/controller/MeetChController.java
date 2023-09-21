@@ -23,7 +23,7 @@ public class MeetChController {
     @PostMapping("/save")
     @ResponseBody
     @ResponseStatus
-    public ResponseEntity<MeetingChannels> createMeetingChannel(@PathVariable String id, @RequestBody MeetingChannels meetingChannels) {
+    public ResponseEntity<MeetingChannels> createMeetingChannel(String id, @RequestBody MeetingChannels meetingChannels) {
         try {
             MeetingChannels createdChannel = meetChService.create(id, meetingChannels);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
