@@ -2,23 +2,41 @@ package springmongo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import springmongo.exception.ChannelNotFoundException;
+import springmongo.model.Channel;
 import springmongo.model.MeetingChannels;
+import springmongo.repository.ChannelRepository;
 import springmongo.repository.MeetChRepository;
 
 import java.util.List;
+
+@Service
 @RequiredArgsConstructor
 public class MeetChServiceImp implements MeetChService {
 
     private MeetChRepository meetChRepository;
 
+    private ChannelRepository channelRepository;
+
     @Autowired
-    public MeetChServiceImp(MeetChRepository meetChRepository) {
+    public MeetChServiceImp(MeetChRepository meetChRepository, ChannelRepository channelRepository) {
         this.meetChRepository = meetChRepository;
+        this.channelRepository = channelRepository;
     }
 
     @Override
-    public MeetingChannels create(MeetingChannels meetingChannels) {
-        return this.meetChRepository.save(meetingChannels);
+    public MeetingChannels create(String id, MeetingChannels meetingChannels) {
+         Channel channelExists = this.channelRepository.findById(id).orElse(null);
+
+        if(channelExists != null) {
+            meetingChannels.setId(channelExists.getId());
+            this.meetChRepository.save(meetingChannels);
+        }else{
+            throw new ChannelNotFoundException("Esse canal não existe");
+        }
+
+        return meetingChannels;
     }
 
     @Override

@@ -1,10 +1,10 @@
 package springmongo.controller;
 
 
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springmongo.exception.ChannelNotFoundException;
 import springmongo.model.MeetingChannels;
 import springmongo.service.MeetChService;
 
@@ -23,9 +23,13 @@ public class MeetChController {
     @PostMapping("/save")
     @ResponseBody
     @ResponseStatus
-    public ResponseEntity<MeetingChannels> create(@Valid @RequestBody MeetingChannels meetingChannels) {
-        MeetingChannels createMeet = meetChService.create(meetingChannels);
-        return ResponseEntity.ok(createMeet);
+    public ResponseEntity<MeetingChannels> createMeetingChannel(@PathVariable String id, @RequestBody MeetingChannels meetingChannels) {
+        try {
+            MeetingChannels createdChannel = meetChService.create(id, meetingChannels);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
+        } catch (ChannelNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping("/get")

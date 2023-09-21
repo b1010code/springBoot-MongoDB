@@ -1,4 +1,4 @@
-package springmongo.DTOs;
+package springmongo.DTO;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import springmongo.DTOs.TutorialResDto;
+import springmongo.DTO.ChannelResDto;
 import springmongo.model.Channel;
 import springmongo.repository.ChannelRepository;
 
@@ -33,10 +33,10 @@ public class ChannelServiceImp implements ChannelService {
     }
 
     @Override
-    public TutorialResDto findRespAll(String id) {
+    public ChannelResDto findRespAll(String id) {
         Channel channel = this.channelRepository.findById(id).orElse(null);
         if (channel != null) {
-            return this.modelMapper.map(channel, TutorialResDto.class);
+            return this.modelMapper.map(channel, ChannelResDto.class);
         } else {
             throw new RuntimeException("ID não encontrada " + id);
         }
@@ -51,10 +51,10 @@ public class ChannelServiceImp implements ChannelService {
     @Override
     public Channel update(String id, Channel channel) {
 
-        Channel tutorialExists = this.channelRepository.findById(id).get();
+        Channel channelExists = this.channelRepository.findById(id).get();
 
-        if(tutorialExists != null) {
-            channel.setId(tutorialExists.getId());
+        if(channelExists != null) {
+            channel.setId(channelExists.getId());
             this.channelRepository.save(channel);
         }
 
