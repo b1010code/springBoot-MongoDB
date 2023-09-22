@@ -1,6 +1,7 @@
 package springmongo.controller;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +14,15 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/meets")
+@RequiredArgsConstructor
 public class MeetChController {
-    private MeetChService meetChService;
 
-    public MeetChController(MeetChService meetChService) {
-        this.meetChService = meetChService;
-    }
+    private final MeetChService meetChService;
 
     @PostMapping("/save")
     @ResponseBody
     @ResponseStatus
-    public ResponseEntity<MeetingChannels> createMeetingChannel(String id, @RequestBody MeetingChannels meetingChannels) {
+    public ResponseEntity<MeetingChannels> createMeetingChannel(@RequestBody String id,MeetingChannels meetingChannels) {
         try {
             MeetingChannels createdChannel = meetChService.create(id, meetingChannels);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);

@@ -1,6 +1,7 @@
 package springmongo.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +14,12 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("/tutorials")
+@RequestMapping("/channels")
+@RequiredArgsConstructor
 public class ChannelController {
-    private ChannelService channelService;
-    private ModelMapper modelMapper;
 
-    public ChannelController(ChannelService channelService, ModelMapper modelMapper) {
-        this.channelService = channelService;
-        this.modelMapper = modelMapper;
-    }
+    private final ChannelService channelService;
+    private final ModelMapper modelMapper;
 
     @PostMapping("/save")
     @ResponseBody

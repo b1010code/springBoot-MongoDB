@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -18,10 +16,11 @@ import java.time.LocalDate;
 
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "Tutorials")
+@Document(collection = "Channel")
 public class Channel {
     @Id
     private String id;
@@ -45,4 +44,5 @@ public class Channel {
 
     @NotBlank(message = "Número de clicks obrigatório")
     private BigInteger numberClicks;
+
 }

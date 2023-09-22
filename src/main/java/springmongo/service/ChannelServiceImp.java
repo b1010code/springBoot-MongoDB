@@ -2,7 +2,6 @@ package springmongo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springmongo.DTO.ChannelResDto;
 import springmongo.model.Channel;
@@ -13,14 +12,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ChannelServiceImp implements ChannelService {
-    private ChannelRepository channelRepository;
-    private ModelMapper modelMapper;
 
-    @Autowired
-    public ChannelServiceImp(ChannelRepository channelRepository, ModelMapper modelMapper) {
-        this.channelRepository = channelRepository;
-        this.modelMapper = modelMapper;
-    }
+    private final ChannelRepository channelRepository;
+    private final ModelMapper modelMapper;
 
     @Override
     public Channel create(Channel channel) {
