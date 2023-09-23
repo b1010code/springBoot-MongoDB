@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "MeetingChannels")
+@Document("MeetingChannels")
 public class MeetingChannels {
     @Id
     private String id;
