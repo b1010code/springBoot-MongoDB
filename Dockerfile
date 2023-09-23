@@ -8,7 +8,7 @@ ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
 WORKDIR /opt/starter
 
-COPY /target/starter*.jar starter.jar
+COPY target/spring-MongoDB-0.0.1-SNAPSHOT.jar starter.jar
 
 SHELL ["/bin/sh", "-c"]
 
