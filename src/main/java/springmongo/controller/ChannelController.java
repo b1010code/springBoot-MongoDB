@@ -55,9 +55,10 @@ public class ChannelController {
     //other DTO example
     @GetMapping("/alltwo")
     public ResponseEntity<List<ChannelResDto>> getAlltwo() {
-        List<Channel> list = this.channelService.findAll();
-        List<ChannelResDto> listDTO = list.stream().map(x -> mapper.map(x, ChannelResDto.class)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(listDTO);
+        return ResponseEntity.ok().body(this.channelService.findAll()
+                .stream()
+                .map(x -> mapper.map(x, ChannelResDto.class))
+                .collect(Collectors.toList()));
     }
 
 
