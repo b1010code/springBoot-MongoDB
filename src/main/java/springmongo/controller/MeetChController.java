@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springmongo.exception.ChannelNotFoundException;
+import springmongo.exception.ObjectNotFoundException;
 import springmongo.model.MeetingChannels;
 import springmongo.service.MeetChService;
 
@@ -22,11 +22,11 @@ public class MeetChController {
     @PostMapping("/save")
     @ResponseBody
     @ResponseStatus
-    public ResponseEntity<MeetingChannels> createMeetingChannel(@RequestBody String id,MeetingChannels meetingChannels) {
+    public ResponseEntity<MeetingChannels> createMeetingChannel(@RequestBody MeetingChannels meetingChannels) {
         try {
-            MeetingChannels createdChannel = meetChService.create(id, meetingChannels);
+            MeetingChannels createdChannel = meetChService.create(meetingChannels);
             return ResponseEntity.status(HttpStatus.CREATED).body(createdChannel);
-        } catch (ChannelNotFoundException e) {
+        } catch (ObjectNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

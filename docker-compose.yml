@@ -1,6 +1,7 @@
 version: '3'
 services:
   starter-api:
+    container_name: sprmongo-sys-vote
     build:
       context: ./
       dockerfile: ./Dockerfile

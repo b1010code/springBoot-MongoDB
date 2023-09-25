@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import springmongo.DTO.ChannelResDto;
+import springmongo.exception.ObjectNotFoundException;
 import springmongo.model.Channel;
 import springmongo.repository.ChannelRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ChannelServiceImp implements ChannelService {
 
     private final ChannelRepository channelRepository;
-    private final ModelMapper modelMapper;
+    private final ModelMapper mapper;
 
     @Override
     public Channel create(Channel channel) {
@@ -27,19 +30,23 @@ public class ChannelServiceImp implements ChannelService {
     }
 
     @Override
-    public ChannelResDto findRespAll(String id) {
-        Channel channel = this.channelRepository.findById(id).orElse(null);
-        if (channel != null) {
-            return this.modelMapper.map(channel, ChannelResDto.class);
-        } else {
-            throw new RuntimeException("ID não encontrada " + id);
+    public List<ChannelResDto> findAllSearch() {
+        List<Channel> channels = this.channelRepository.findAll();
+        List<ChannelResDto> channelResDtos = new ArrayList<>();
+
+        for (Channel channel : channels) {
+            ChannelResDto channelResDto = mapper.map(channel, ChannelResDto.class);
+            channelResDtos.add(channelResDto);
         }
+
+        return channelResDtos;
     }
 
 
     @Override
     public Channel findById(String id) {
-        return this.channelRepository.findById(id).get();
+        Optional<Channel> obj = this.channelRepository.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
 
     @Override
@@ -47,7 +54,7 @@ public class ChannelServiceImp implements ChannelService {
 
         Channel channelExists = this.channelRepository.findById(id).get();
 
-        if(channelExists != null) {
+        if (channelExists != null) {
             channel.setId(channelExists.getId());
             this.channelRepository.save(channel);
         }
@@ -60,6 +67,5 @@ public class ChannelServiceImp implements ChannelService {
         this.channelRepository.deleteById(id);
         return false;
     }
-
 
 }

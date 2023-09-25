@@ -55,7 +55,7 @@ class MeetChServiceImpTest {
 
         MeetingChannels meetingChannels = new MeetingChannels();
 
-        MeetingChannels result = meetChServiceImp.create(id, meetingChannels);
+        MeetingChannels result = meetChServiceImp.create(meetingChannels);
 
         verify(channelRepository).findById(id);
 

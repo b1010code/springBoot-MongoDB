@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -16,8 +18,7 @@ import java.time.LocalDate;
 
 
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "Channel")
@@ -32,17 +33,15 @@ public class Channel {
     @Field(targetType = FieldType.STRING)
     private String description;
 
-    @JsonProperty("checkIn")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate checkIn;
-
-    @JsonProperty("checkOut")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    private LocalDate checkOut;
-
-    @NotBlank(message = "Número de clicks obrigatório")
+    @NotBlank(message = "Clicks obrigatório")
     private BigInteger numberClicks;
 
+    @NotBlank(message = "Endereço do canal obrigatório")
+    private  String channelAddress;
+
+    @JsonProperty("registrationDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @NotBlank(message = "Data obrigatório")
+    private LocalDate registrationDate;
 }

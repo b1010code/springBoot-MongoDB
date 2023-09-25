@@ -19,7 +19,7 @@ import java.util.List;
 public class ChannelController {
 
     private final ChannelService channelService;
-    private final ModelMapper modelMapper;
+    private final ModelMapper mapper;
 
     @PostMapping("/save")
     @ResponseBody
@@ -36,6 +36,25 @@ public class ChannelController {
         return ResponseEntity.ok(channels);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<ChannelResDto>> getAllChannels() {
+        try {
+            List<ChannelResDto> channelResDtos = channelService.findAllSearch();
+
+            if (!channelResDtos.isEmpty()) {
+                return new ResponseEntity<>(channelResDtos, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
+
+
 
     @GetMapping("/{id}")
     @ResponseBody
@@ -44,20 +63,6 @@ public class ChannelController {
 
         if (channel != null) {
             return new ResponseEntity<>(channel, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-
-    @GetMapping("/get/{id}")
-    @ResponseBody
-    public ResponseEntity<ChannelResDto> findRespAll(@PathVariable(value = "id") String id) {
-        Channel channel = this.channelService.findById(id);
-
-        if (channel != null) {
-            ChannelResDto channelResDto = this.modelMapper.map(channel, ChannelResDto.class);
-            return new ResponseEntity<>(channelResDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

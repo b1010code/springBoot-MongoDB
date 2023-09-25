@@ -3,10 +3,8 @@
 springboot com MongoDB atual.
 
 - CRUD 
-- Model Mapper
-- DTO
-- Validação com Bean Validation
-- Exceptions 
+- Model Mapper, DTO
+- Exceptions, Exception Handler
 - Junit 5, testes unitários
 
 
