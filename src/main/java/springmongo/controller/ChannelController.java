@@ -11,6 +11,7 @@ import springmongo.model.Channel;
 import springmongo.service.ChannelService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
@@ -51,9 +52,13 @@ public class ChannelController {
         }
     }
 
-
-
-
+    //other DTO example
+    @GetMapping("/alltwo")
+    public ResponseEntity<List<ChannelResDto>> getAlltwo() {
+        List<Channel> list = this.channelService.findAll();
+        List<ChannelResDto> listDTO = list.stream().map(x -> mapper.map(x, ChannelResDto.class)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
+    }
 
 
     @GetMapping("/{id}")
