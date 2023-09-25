@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SpringMongoDbApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void main() {
+		SpringMongoDbApplication.main(new String[]{});
 	}
 
 }
