@@ -39,6 +39,9 @@ public class Channel {
     @NotBlank(message = "Endereço do canal obrigatório")
     private  String channelAddress;
 
+    @NotBlank(message = "Email obrigatório")
+    private String email;
+
     @JsonProperty("registrationDate")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)

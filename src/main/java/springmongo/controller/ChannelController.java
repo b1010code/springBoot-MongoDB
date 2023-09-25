@@ -52,7 +52,6 @@ public class ChannelController {
         }
     }
 
-    //other DTO example
     @GetMapping("/alltwo")
     public ResponseEntity<List<ChannelResDto>> getAlltwo() {
         return ResponseEntity.ok().body(this.channelService.findAll()

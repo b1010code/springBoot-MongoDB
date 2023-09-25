@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import springmongo.DTO.ChannelResDto;
+import springmongo.exception.DataIntegratyViolationException;
 import springmongo.exception.ObjectNotFoundException;
 import springmongo.model.Channel;
 import springmongo.repository.ChannelRepository;
@@ -21,7 +22,16 @@ public class ChannelServiceImp implements ChannelService {
 
     @Override
     public Channel create(Channel channel) {
+        findByEmail(channel);
         return this.channelRepository.save(channel);
+    }
+
+    private void findByEmail(Channel channel) {
+        Optional<Channel> ch = this.channelRepository.findByEmail(channel.getEmail());
+
+        if (ch.isPresent()) {
+            throw new DataIntegratyViolationException("Emmail já cadastrado");
+        }
     }
 
     @Override
@@ -41,7 +51,6 @@ public class ChannelServiceImp implements ChannelService {
 
         return channelResDtos;
     }
-
 
     @Override
     public Channel findById(String id) {
