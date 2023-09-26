@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 
@@ -34,7 +33,7 @@ public class Channel {
     private String description;
 
     @NotBlank(message = "Clicks obrigatório")
-    private BigInteger numberClicks;
+    private Integer numberClicks;
 
     @NotBlank(message = "Endereço do canal obrigatório")
     private  String channelAddress;

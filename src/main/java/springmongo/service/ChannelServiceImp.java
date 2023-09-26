@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ChannelServiceImp implements ChannelService {
 
     private final ChannelRepository channelRepository;
-    private final ModelMapper mapper;
+    private final  ModelMapper mapper;
 
     @Override
     public Channel create(Channel channel) {
@@ -30,7 +30,7 @@ public class ChannelServiceImp implements ChannelService {
         Optional<Channel> ch = this.channelRepository.findByEmail(channel.getEmail());
 
         if (ch.isPresent()) {
-            throw new DataIntegratyViolationException("Emmail já cadastrado");
+            throw new DataIntegratyViolationException("Email já cadastrado");
         }
     }
 
@@ -51,7 +51,6 @@ public class ChannelServiceImp implements ChannelService {
 
         return channelResDtos;
     }
-
     @Override
     public Channel findById(String id) {
         Optional<Channel> obj = this.channelRepository.findById(id);

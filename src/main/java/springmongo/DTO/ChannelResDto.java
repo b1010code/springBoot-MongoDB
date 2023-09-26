@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigInteger;
 import java.time.LocalDate;
 
 @Getter
@@ -14,6 +13,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ChannelResDto {
     private String title;
-    private BigInteger numberClicks;
+    private Integer numberClicks;
     private LocalDate registrationDate;
 }

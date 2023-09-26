@@ -5,16 +5,12 @@ springboot com MongoDB atual.
 - CRUD 
 - Model Mapper, DTO
 - Exceptions, Exception Handler
-- Junit 5, testes unitários {
-                              - Teste para a classe principal
-
-                            }
+- Junit, Mockito, Testes de cobertura, Unitários 
 
 
 
 
-
- Obs: Desenvolvimento em andamento
+ Obs: Em andamento
 
 
 
