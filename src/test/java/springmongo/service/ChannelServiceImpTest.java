@@ -142,20 +142,6 @@ class ChannelServiceImpTest {
         assertEquals(CHANNELADDRESS, response.getChannelAddress());
     }
 
-    /*
-    // Cria um mock do repositório
-        when(usuarioRepository.save(any(Usuario.class))).thenReturn(new Usuario());
-
-        // Instancia o serviço
-        UsuarioService usuarioService = new UsuarioService(usuarioRepository);
-
-        // Chama o método update
-        Usuario usuario = usuarioService.update(new Usuario());
-
-        // Valida o resultado
-        assertThat(usuario.getId()).isNotNull();
-     */
-
     @Test
     void deleteWithSuccess() {
         when(repository.findById(anyString())).thenReturn(optionalChannel);

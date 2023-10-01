@@ -60,11 +60,12 @@ public class ChannelServiceImp implements ChannelService {
 
     @Override
     public Channel update(String id, Channel channel) {
-
         Optional<Channel> channelExists = this.channelRepository.findById(id);
 
         if (channelExists != null) {
             this.channelRepository.save(channel);
+        }else {
+           throw new ObjectNotFoundException("Objeto não encontrado");
         }
 
         return channel;
