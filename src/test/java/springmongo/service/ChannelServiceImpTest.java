@@ -17,21 +17,21 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-//java.util.regex
-import static jdk.nashorn.internal.runtime.regexp.joni.constants.OPSize.INDEX;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 class ChannelServiceImpTest {
-    public static final String ID = "6511733ede463d51907d66fa";
-    public static final String TITLE = "snakers";
-    public static final String DESCRIPTION = "canal de interessado em cobra";
-    public static final Integer NUMBERCLICKS = 49000;
-    public static final String CHANNELADDRESS = "www.youtube.com/watch?v=ArM7f-MLfw8&pp=ygUFY29icmE%3D";
-    public static final String EMAIL = "cobra@hotmail.com";
-    public static final LocalDate LOCALDATE = LocalDate.of(2021, 9, 25);
+    private static final Integer INDEX   = 0;
+    public static final String ID = "6518a3f02a93d936b260235e";
+    public static final String TITLE = "Bikers";
+    public static final String DESCRIPTION = "canal sobre bicicleta";
+    public static final Integer NUMBERCLICKS = 17000;
+    public static final String CHANNELADDRESS = "https://www.bikers.com";
+    public static final String EMAIL = "bikers@hotmail.com";
+    public static final LocalDate LOCALDATE = LocalDate.of(2018, 9, 19);
     private static final String OBJETO_NAO_ENCONTRADO = "Objeto não encontrado";
     private static final String E_MAIL_JA_CADASTRADO_NO_SISTEMA = "E-mail já cadastrado no sistema";
 
@@ -88,7 +88,7 @@ class ChannelServiceImpTest {
         List<Channel> response = service.findAll();
 
         assertNotNull(response);
-        assertEquals("6511733ede463d51907d66fa", response.size());
+        assertEquals(1, response.size());
         assertEquals(Channel.class, response.get(INDEX).getClass());
 
         assertEquals(ID, response.get(INDEX).getId());
@@ -126,6 +126,35 @@ class ChannelServiceImpTest {
             assertEquals(E_MAIL_JA_CADASTRADO_NO_SISTEMA, ex.getMessage());
         }
     }
+
+    @Test
+    void whenUpdateThenReturnSuccess() {
+        when(repository.save(any())).thenReturn(channel);
+
+        Channel response = service.update(id, channel);
+
+        assertNotNull(response);
+        assertEquals(Channel.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(TITLE, response.getTitle());
+        assertEquals(DESCRIPTION, response.getDescription());
+        assertEquals(NUMBERCLICKS, response.getNumberClicks());
+        assertEquals(CHANNELADDRESS, response.getChannelAddress());
+    }
+
+    /*
+    // Cria um mock do repositório
+        when(usuarioRepository.save(any(Usuario.class))).thenReturn(new Usuario());
+
+        // Instancia o serviço
+        UsuarioService usuarioService = new UsuarioService(usuarioRepository);
+
+        // Chama o método update
+        Usuario usuario = usuarioService.update(new Usuario());
+
+        // Valida o resultado
+        assertThat(usuario.getId()).isNotNull();
+     */
 
     @Test
     void deleteWithSuccess() {

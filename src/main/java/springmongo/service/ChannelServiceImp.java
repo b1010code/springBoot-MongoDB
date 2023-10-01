@@ -18,7 +18,7 @@ import java.util.Optional;
 public class ChannelServiceImp implements ChannelService {
 
     private final ChannelRepository channelRepository;
-    private final  ModelMapper mapper;
+    private final ModelMapper mapper;
 
     @Override
     public Channel create(Channel channel) {
@@ -51,6 +51,7 @@ public class ChannelServiceImp implements ChannelService {
 
         return channelResDtos;
     }
+
     @Override
     public Channel findById(String id) {
         Optional<Channel> obj = this.channelRepository.findById(id);
@@ -60,10 +61,9 @@ public class ChannelServiceImp implements ChannelService {
     @Override
     public Channel update(String id, Channel channel) {
 
-        Channel channelExists = this.channelRepository.findById(id).get();
+        Optional<Channel> channelExists = this.channelRepository.findById(id);
 
         if (channelExists != null) {
-            channel.setId(channelExists.getId());
             this.channelRepository.save(channel);
         }
 

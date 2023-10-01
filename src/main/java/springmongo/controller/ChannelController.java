@@ -73,7 +73,7 @@ public class ChannelController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Channel> update(@PathVariable(value = "id") String id, @RequestBody Channel channel) {
         Channel updatedTutorial = this.channelService.update(id, channel);
 
